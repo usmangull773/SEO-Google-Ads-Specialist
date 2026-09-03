@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arratech Search Baseline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{
+  --ground:#f7f9fc;
+  --surface:#ffffff;
+  --surface-2:#f1f5fa;
+  --ink:#132338;
+  --ink-soft:#3d4d63;
+  --muted:#647689;
+  --hair:#e3eaf3;
+  --accent:#1f5fd6;
+  --accent-deep:#0f3d90;
+  --good:#137a43;
+  --good-bg:#e6f4ec;
+  --good-line:#bfe3cd;
+  --alert:#c0202f;
+  --alert-bg:#fbeceD;
+  --alert-line:#f2c7cc;
+  --chip:#eef3fa;
+  --shadow:0 1px 2px rgba(19,35,56,.05),0 8px 24px rgba(19,35,56,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0c131d;
+    --surface:#121b28;
+    --surface-2:#0f1825;
+    --ink:#eaf1fa;
+    --ink-soft:#c3d0df;
+    --muted:#8ea0b4;
+    --hair:#22303f;
+    --accent:#63a0f7;
+    --accent-deep:#a9c8fb;
+    --good:#57c98a;
+    --good-bg:#10281c;
+    --good-line:#1f4a34;
+    --alert:#f18a92;
+    --alert-bg:#2a1418;
+    --alert-line:#5a2830;
+    --chip:#16212f;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.28);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0c131d;
+  --surface:#121b28;
+  --surface-2:#0f1825;
+  --ink:#eaf1fa;
+  --ink-soft:#c3d0df;
+  --muted:#8ea0b4;
+  --hair:#22303f;
+  --accent:#63a0f7;
+  --accent-deep:#a9c8fb;
+  --good:#57c98a;
+  --good-bg:#10281c;
+  --good-line:#1f4a34;
+  --alert:#f18a92;
+  --alert-bg:#2a1418;
+  --alert-line:#5a2830;
+  --chip:#16212f;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:"Archivo",system-ui,sans-serif;text-wrap:balance;margin:0}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.mono{font-family:"IBM Plex Mono",monospace}
+p{margin:0}
+a{color:var(--accent);text-decoration:none}
+
+/* Hero */
+.hero{padding:64px 0 34px;border-bottom:1px solid var(--hair)}
+.hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:44px;align-items:center}
+.hero h1{font-size:clamp(30px,4.4vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.02em;margin:16px 0 14px}
+.hero h1 .u{color:var(--accent)}
+.lede{font-size:18px;color:var(--ink-soft);max-width:34ch}
+.scorecard{background:var(--surface);border:1px solid var(--hair);border-radius:16px;padding:20px 22px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.sc-eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.sc-row{display:flex;align-items:center;gap:16px;padding:14px 0;border-top:1px solid var(--hair)}
+.sc-row:first-of-type{border-top:0;padding-top:8px}
+.sc-num{font-family:"Archivo",sans-serif;font-weight:800;font-size:42px;line-height:1;font-variant-numeric:tabular-nums;min-width:44px;text-align:center}
+.sc-num.good{color:var(--good)}
+.sc-num.bad{color:var(--alert)}
+.sc-lbl{font-size:13.5px;color:var(--ink-soft);line-height:1.38}
+.sc-foot{border-top:1px solid var(--hair);padding-top:12px;margin-top:2px;font-size:12.5px;color:var(--muted)}
+
+/* Section shell */
+section{padding:40px 0;border-bottom:1px solid var(--hair)}
+.s-head{display:flex;flex-direction:column;gap:8px;margin-bottom:24px;max-width:60ch}
+.s-head h2{font-size:clamp(21px,2.5vw,27px);font-weight:700;letter-spacing:-.01em}
+.s-head p{color:var(--muted);font-size:15.5px}
+
+/* Finding cards */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--surface);border:1px solid var(--hair);border-radius:13px;padding:18px 19px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px}
+.card .top{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.pill{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px;white-space:nowrap}
+.pill.good{color:var(--good);background:var(--good-bg);border:1px solid var(--good-line)}
+.pill.bad{color:var(--alert);background:var(--alert-bg);border:1px solid var(--alert-line)}
+.card h3{font-size:16.5px;font-weight:600;line-height:1.35;color:var(--ink)}
+.card .why{font-size:14.5px;color:var(--ink-soft)}
+.card .ev{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);background:var(--chip);border:1px solid var(--hair);border-radius:7px;padding:5px 8px;align-self:flex-start;max-width:100%;overflow-x:auto;white-space:nowrap}
+.tag-good{color:var(--good);font-weight:600}
+.tag-bad{color:var(--alert);font-weight:600}
+
+/* Flow strip */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.step{background:var(--surface);border:1px solid var(--hair);border-radius:12px;padding:15px 15px;box-shadow:var(--shadow);position:relative}
+.step .n{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);font-weight:500}
+.step h3{font-size:15px;font-weight:600;margin-top:6px;color:var(--ink)}
+.step p{font-size:13px;color:var(--muted);margin-top:5px}
+.flow-note{margin-top:16px;font-size:15px;color:var(--ink-soft)}
+
+/* Roadmap */
+.road{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.phase{background:var(--surface);border:1px solid var(--hair);border-radius:13px;padding:19px 20px;box-shadow:var(--shadow)}
+.phase .k{display:flex;align-items:baseline;gap:11px;margin-bottom:8px}
+.phase .k b{font-family:"Archivo",sans-serif;font-size:15px;color:var(--ink);font-weight:700}
+.phase .k .step-lbl{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);font-weight:500}
+.phase p{font-size:14.5px;color:var(--ink-soft)}
+
+/* Proof */
+.proof{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center}
+.creds{display:flex;flex-wrap:wrap;gap:9px;margin-top:4px}
+.badge{font-size:13px;font-weight:600;color:var(--ink);background:var(--surface-2);border:1px solid var(--hair);border-radius:999px;padding:7px 13px}
+.proof .line{font-size:16px;color:var(--ink-soft)}
+
+/* Footer */
+footer{padding:28px 0 48px}
+footer p{font-size:13.5px;color:var(--muted)}
+footer .mono{color:var(--ink-soft)}
+
+@media (max-width:760px){
+  .hero-grid{grid-template-columns:1fr;gap:26px;align-items:start}
+  .cards,.road,.proof{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .hero{padding:44px 0 28px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Search Baseline Snapshot</span>
+        <h1>A first look under the hood of <span class="u">arratech.com</span></h1>
+        <p class="lede">What the Search setup already gets right, where qualified demand is quietly leaking, and the order I would fix it in.</p>
+      </div>
+      <aside class="scorecard" aria-label="Baseline at a glance">
+        <span class="sc-eyebrow">Baseline at a glance</span>
+        <div class="sc-row"><span class="sc-num good">4</span><span class="sc-lbl">things already done right, from your measurement stack to mandate timed ads</span></div>
+        <div class="sc-row"><span class="sc-num bad">5</span><span class="sc-lbl">quick wins found on the live site, none of them needing a rebuild</span></div>
+        <div class="sc-row"><span class="sc-num bad">1</span><span class="sc-lbl">blind spot sitting on your strongest B2B channel</span></div>
+        <p class="sc-foot">A focused read of your Search setup, before a single change is made.</p>
+      </aside>
+    </div>
+  </header>
+
+  <section aria-label="Purpose">
+    <div class="s-head">
+      <h2>Why this exists before any pitch</h2>
+      <p>You asked for a partner who understands the baseline before prescribing a solution. So instead of a template, this is a real read of your own Search setup, checked live against your site. It is a sample of how I look at an account before touching anything.</p>
+    </div>
+  </section>
+
+  <section aria-label="What is working">
+    <div class="s-head">
+      <h2>What is already working</h2>
+      <p>Credit where it is due. The foundation is more mature than most B2B sites at this stage.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="top"><h3>Full Google measurement stack is live</h3><span class="pill good">Working</span></div>
+        <p class="why">GA4, Tag Manager and a Google Ads tag are all installed and firing. The plumbing exists, so the work is refinement, not rebuild.</p>
+        <span class="ev">GA4 G-BZ1BKFWLKQ · GTM-TFMT3Z75 · AW-17322445509</span>
+      </div>
+      <div class="card">
+        <div class="top"><h3>Consent Mode is set up correctly</h3><span class="pill good">Working</span></div>
+        <p class="why">Tags are gated behind consent, which is the right posture for EU regulated markets. Most applicants will not even notice this is handled.</p>
+        <span class="ev">Google Consent Mode active</span>
+      </div>
+      <div class="card">
+        <div class="top"><h3>A genuine Peppol content library</h3><span class="pill good">Working</span></div>
+        <p class="why">Country mandate pages, a glossary and a real blog on Peppol infrastructure. The topical authority is being built. It mostly needs to be found.</p>
+        <span class="ev">France, UK, UAE, Oman, Denmark, Slovakia pages</span>
+      </div>
+      <div class="card">
+        <div class="top"><h3>Paid Search is already timed to the mandates</h3><span class="pill good">Working</span></div>
+        <p class="why">Live Search ads target the France 2026 mandate in <b>both English and French</b>. Bidding on high intent, mandate driven demand is exactly right.</p>
+        <span class="ev">14 live ads, English and French</span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="What is leaking">
+    <div class="s-head">
+      <h2>Where qualified demand is leaking</h2>
+      <p>These are specific, fixable, and none of them need a rebuild. Each one costs you visibility or measurement you are already paying to earn.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="top"><h3>The homepage title carries no keywords</h3><span class="pill bad">Needs fix</span></div>
+        <p class="why">Your most important page tells Google almost nothing. No mention of Peppol, e-invoicing or Access Point in the title. This is a fast, high impact correction.</p>
+        <span class="ev">Title: "Home · Arratech AB"</span>
+      </div>
+      <div class="card">
+        <div class="top"><h3>No hreflang across your market pages</h3><span class="pill bad">Needs fix</span></div>
+        <p class="why">You target six countries but the site only declares one language and region. Search engines cannot map the right page to the right market, so priority markets lose visibility.</p>
+        <span class="ev">Declared: en-US only</span>
+      </div>
+      <div class="card">
+        <div class="top"><h3>A dev version of the site is reaching Google</h3><span class="pill bad">Needs fix</span></div>
+        <p class="why">A development subdomain is publicly indexable. That risks duplicate content against your real pages and wastes crawl attention. It should be closed off.</p>
+        <span class="ev">dev.arratech.com appears in search</span>
+      </div>
+      <div class="card">
+        <div class="top"><h3>The main B2B channel is not being measured</h3><span class="pill bad">Needs fix</span></div>
+        <p class="why">No LinkedIn tag was detected. For a long, multi stakeholder B2B journey, that is the one audience layer you most want to see and reach. A blind spot on your best channel.</p>
+        <span class="ev">LinkedIn Insight Tag: not detected</span>
+      </div>
+      <div class="card">
+        <div class="top"><h3>FAQ and product pages miss their structured data</h3><span class="pill bad">Needs fix</span></div>
+        <p class="why">You have an FAQ page, but not the schema that lets Google and AI answer engines surface it. Free real estate in search and AI results is being left on the table.</p>
+        <span class="ev">FAQ and Product schema absent</span>
+      </div>
+      <div class="card">
+        <div class="top"><h3>Low organic base, large headroom</h3><span class="pill bad">Opportunity</span></div>
+        <p class="why">Organic traffic is still small enough that third party tools show almost no data. That is not a weakness, it is unclaimed ground while the mandates drive demand.</p>
+        <span class="ev">Room to grow, not a plateau</span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Traffic versus demand">
+    <div class="s-head">
+      <h2>Traffic is not the same as demand</h2>
+      <p>Your brief was clear that clicks are not the goal. This is the chain I hold every account to, so Search connects to pipeline instead of stopping at a visit.</p>
+    </div>
+    <div class="flow">
+      <div class="step"><span class="n">01</span><h3>Tracking</h3><p>Every demo and enquiry action fires cleanly in GA4 and Ads.</p></div>
+      <div class="step"><span class="n">02</span><h3>Intent</h3><p>Terms that signal a buyer, not a browser or a student.</p></div>
+      <div class="step"><span class="n">03</span><h3>Landing</h3><p>The page answers the exact query it was reached by.</p></div>
+      <div class="step"><span class="n">04</span><h3>Lead quality</h3><p>Enquiries that Sales would actually want to follow up.</p></div>
+      <div class="step"><span class="n">05</span><h3>Pipeline</h3><p>Reporting that ties Search back to real opportunities.</p></div>
+    </div>
+    <p class="flow-note"><b>Most accounts break at steps 1 and 3.</b> That is usually why Paid Search can bring traffic and still show few meaningful conversions.</p>
+  </section>
+
+  <section aria-label="Path">
+    <div class="s-head">
+      <h2>The order I would work in</h2>
+      <p>Fixes first where the return is fast and provable, then the compounding work. Priorities would move with what the internal data shows.</p>
+    </div>
+    <div class="road">
+      <div class="phase">
+        <div class="k"><span class="step-lbl">Step 1</span><b>Confirm the baseline</b></div>
+        <p>Read the internal picture across Search Console, GA4 and the Ads account, then validate these public findings and set the real priorities from evidence.</p>
+      </div>
+      <div class="phase">
+        <div class="k"><span class="step-lbl">Step 2</span><b>Fix the fast leaks</b></div>
+        <p>Homepage and key page titles, hreflang across the six markets, close the dev subdomain, and add FAQ and product structured data.</p>
+      </div>
+      <div class="phase">
+        <div class="k"><span class="step-lbl">Step 3</span><b>Make Search measurable</b></div>
+        <p>Verify demo and enquiry conversions in GA4 and Ads, add the missing B2B audience layer, and tidy UTM conventions so reporting can be trusted.</p>
+      </div>
+      <div class="phase">
+        <div class="k"><span class="step-lbl">Step 4</span><b>Grow qualified demand</b></div>
+        <p>Structure Search around mandate intent, France now, UK and Belgium next, align ads to landing pages, and report on demand and pipeline, not clicks.</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Who prepared this">
+    <div class="s-head">
+      <h2>Who put this together</h2>
+      <p>The snapshot above is the actual work, not a claim about it. The rest is short on purpose.</p>
+    </div>
+    <div class="proof">
+      <div>
+        <div class="creds">
+          <span class="badge">10+ years hands-on Google Ads</span>
+          <span class="badge">GA4 and Tag Manager certified</span>
+          <span class="badge">Google Ads certified</span>
+          <span class="badge">Top Rated Plus, 100% Job Success</span>
+        </div>
+      </div>
+      <p class="line">My work is measured on qualified leads and cost per lead, not clicks or CPC. A full baseline audit across your own accounts would confirm the internal side of this picture.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Prepared by <b>Usman Gull</b> for the Arratech Marketing team. <span class="mono">A live read of the arratech.com Search setup, September 2026.</span></p>
+  </footer>
+
+</div>
+</body>
+</html>
